@@ -1,6 +1,24 @@
 import React, { Component } from 'react';
-import styled, { createGlobalStyle  } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+import Header from './header/Header'
 
+const Wrapper = styled.section`
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+      <Wrapper>
+        <Header />
+        <GlobalStyle />
+      </Wrapper>
+      </div>
+    );
+  }
+}
 const GlobalStyle = createGlobalStyle`
 *,
 *::before,
@@ -325,15 +343,4 @@ template {
   display: none !important;
 }
 `;
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <GlobalStyle />
-      </div>
-    );
-  }
-}
-
 export default App;
