@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { connect } from 'react-redux'
+
 
 const rotate = keyframes`
   from {
     transform: translateX(500px);
   }
-
   to {
     transform: translateX(0px);
   }
@@ -28,7 +29,7 @@ const Nav = styled.nav`
     top: 0;
     right: 0;
     height: 100vh;
-    width: 30vmax;
+    width: 50vmax;
     background-color: #a82844;
     z-index: 2;
     animation: ${rotate} .1s;
@@ -54,63 +55,63 @@ const LinkItem = styled.a`
     }
 `;
 
-const CloseNav = styled.button`
-    color: white;
-    font-size: 2em;
-    background: none;
-    border: none;
-    background: #8c0000;
-    cursor: pointer;
-`;
-
 class Menu extends Component {
-    state = { showing: false };
-	render() {
-      const { showing } = this.state;
-	  return (   
-        <div>
-        <Button onClick={() => this.setState({ showing: !showing })}>
-            меню
+
+  state = { showMenu: false }
+
+  showMenu = (e) => {
+    e.preventDefault();
+    this.setState({ showMenu: true }, () => {
+      document.addEventListener('click', this.closeMenu);
+    });
+  }
+
+  closeMenu = (e) => {
+    if (!this.menu.contains(e.target)) {
+      this.setState({ showMenu: false }, () => {
+        document.removeEventListener('click', this.closeMenu);
+      });
+    }
+  }
+  render() {
+    return (
+      <>
+        <Button onClick={this.showMenu}>
+          Меню
         </Button>
-        { showing 
-            ? <Nav>
-            <CloseNav onClick={() => this.setState({ showing: !showing })}>Закрыть</CloseNav>
-            <WrapperItem>
-            <ListItem>
-                <LinkItem
-                    href="https://samara.hh.ru/resume/6d5a39ceff0544dc810039ed1f325579657057"
-                    target="_blank"
-                    rel="noopener noreferrer"
-               >
-                    Резюме
-                </LinkItem>
-            </ListItem>
-            <ListItem>
-                <LinkItem
-                    href="https://vk.com/id181960073"
-                    target="_blank"
-                    rel="noopener noreferrer"
-               >
-                    Мой вк
-                </LinkItem>
-            </ListItem>
-            <ListItem>
-                <LinkItem
-                    href="https://github.com/Kafkae"
-                    target="_blank"
-                    rel="noopener noreferrer"
-               >
-                    GitHub
-                </LinkItem>
-            </ListItem>
-            </WrapperItem>
-        </Nav>
-            : null
+        {
+          this.state.showMenu
+            ? (
+              <Nav ref={(element) => { this.menu = element; }}>
+                <WrapperItem >
+                  {this.props.menu.map(menu =>
+                    <ListItem key={menu.id}>
+                      <LinkItem
+                      href={menu.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >
+                        {menu.name}
+                      </LinkItem>
+                    </ListItem>
+                  )}
+                </WrapperItem>
+              </Nav >
+            )
+            : (
+              null
+            )
         }
-        </div>
-	  );
-	}
-  } 
+      </>
+    );
+  }
+}
 
+const mapStateToProps = store => {
+  console.log(store)
+  return {
+    menu: store.menu,
+  }
+}
 
-  export default Menu;
+export default connect(mapStateToProps)(Menu)

@@ -1,24 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import Header from './header/Header'
+import Header from './header/Header';
+import Filter from './filter/Filter'
+
+const App = () => {
+  return (
+    <Wrapper>
+      <Header />
+      <MainTitle>Фильтрация Сотрудников</MainTitle>
+      {/* <Filter /> */}
+      <GlobalStyle />
+    </Wrapper>
+    );
+  }
 
 const Wrapper = styled.section`
   max-width: 1200px;
   margin: 0 auto;
 `;
+const MainTitle = styled.h1`
+  margin-top: 29px;
+  text-align: center;
+`;
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-      <Wrapper>
-        <Header />
-        <GlobalStyle />
-      </Wrapper>
-      </div>
-    );
-  }
-}
 const GlobalStyle = createGlobalStyle`
 *,
 *::before,
@@ -343,4 +347,4 @@ template {
   display: none !important;
 }
 `;
-export default App;
+export default App

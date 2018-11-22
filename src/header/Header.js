@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Menu from './Menu'
 
@@ -14,15 +14,13 @@ const Logo = styled.div`
 	margin-right: auto;
 `;
 
-class Header extends Component {
-	render() {
+const Header = () => {
 	  return (
 		<Wrapper>
 			<Logo>React-Filter</Logo>
 			<Menu />
 		</Wrapper>
 	  );
-	}
   }
 
   export default Header;
