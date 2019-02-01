@@ -1,22 +1,9 @@
-export const initialState = {
-    menu: [ 
-        {
-            name: 'Резюме',
-            link: 'https://samara.hh.ru/resume/6d5a39ceff0544dc810039ed1f325579657057',
-            id: 1
-        },
-        {
-            name: 'Мой вк',
-            link: 'https://vk.com/id181960073',
-            id: 2
-        },
-         {
-            name: 'GitHub',
-            link: 'https://github.com/Kafkae',
-            id: 3
-        },
-    ],
-}
-export function rootReducer(state = initialState) {
-    return state
-}
+import { combineReducers } from 'redux';
+import { menuReducer } from './menu';
+import { userReducer } from './user';
+
+
+export const rootReducer = combineReducers({
+    menu: menuReducer,
+    user: userReducer
+})

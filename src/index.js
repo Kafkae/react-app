@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/storeConfig'; 
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import App from './components/App';
+
 
 
 ReactDOM.render(
@@ -11,6 +11,5 @@ ReactDOM.render(
         <App />
     </Provider>,
     document.getElementById('root')
-    )
+)
     
-serviceWorker.unregister();
